@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management</title>
+    <link rel="stylesheet" href="style.css"> <!-- Link to CSS for styling -->
+</head>
+<body>
+    <div id="mainPage">
+        <button onclick="navigateToAddEmployee()">Add Employee</button>
+        <hr />
+        <p id="p"></p>
+    </div>
+
+    <div id="addEmployeePage" style="display: none;">
+        <h2>Add New Employee</h2>
+        <form id="addEmployeeForm" onsubmit="submitNewEmployee(event)">
+            <label for="name">Name:</label><br>
+            <input type="text" id="name" name="name" required><br><br>
+
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" required><br><br>
+
+            <label for="department">Department:</label><br>
+            <input type="text" id="department" name="department" required><br><br>
+
+            <button type="submit">Submit</button>
+            <button type="button" onclick="navigateToMainPage()">Cancel</button>
+        </form>
+    </div>
+
+    <script>
+        // Navigate to Add Employee Page
+        function navigateToAddEmployee() {
+            document.getElementById('mainPage').style.display = 'none';
+            document.getElementById('addEmployeePage').style.display = 'block';
+        }
+
+        // Navigate back to Main Page
+        function navigateToMainPage() {
+            document.getElementById('addEmployeePage').style.display = 'none';
+            document.getElementById('mainPage').style.display = 'block';
+        }
+
+        // Submit New Employee
+        async function submitNewEmployee(event) {
+            event.preventDefault(); // Prevent form from reloading the page
+
+            let user = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                department: document.getElementById('department').value,
+            };
+
+            let response = await fetch('https://localhost:7178/api/Employee', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                body: JSON.stringify(user)
+            });
+
+            if (response.ok) {
+                alert('Employee added successfully!');
+                navigateToMainPage();
+                getdata(); // Refresh the list after adding the employee
+            } else {
+                alert('Failed to add employee.');
+            }
+        }
+
+        // Fetch and Display Employee Data
+        function getdata() {
+            fetch('https://localhost:7178/api/Employee')
+                .then(response => response.json())
+                .then(data => {
+                    let content = '';
+                    for (let employee of data) {
+                        content += `<div>
+                            Name: ${employee.name}<br>
+                            Email: ${employee.email}<br>
+                            Department: ${employee.department}<br>
+                            <button onclick="deletedata(${employee.id})">Delete</button>
+                        </div><hr>`;
+                    }
+                    document.getElementById('p').innerHTML = content;
+                });
+        }
+
+        // Delete Employee Data
+        function deletedata(id) {
+            fetch(`https://localhost:7178/api/Employee/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('Employee deleted successfully!');
+                    getdata(); // Refresh the list after deletion
+                } else {
+                    alert('Failed to delete employee.');
+                }
+            });
+        }
+
+        // Fetch data on page load
+        getdata();
+    </script>
+</body>
+</html>

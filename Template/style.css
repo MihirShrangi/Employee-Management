@@ -1,0 +1,108 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+}
+
+/* Main Page and Add Employee Page Styles */
+#mainPage, #addEmployeePage {
+    margin: 20px auto;
+    width: 90%;
+    max-width: 600px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+/* Button Styles */
+button {
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+/* General Button Hover Effect */
+button:hover {
+    filter: brightness(0.9);
+}
+
+/* Add Employee Button */
+#mainPage button {
+    background-color: #007bff;
+    color: white;
+}
+
+/* Submit Button */
+form button[type="submit"] {
+    background-color: #28a745;
+    color: white;
+}
+
+form button[type="submit"]:hover {
+    background-color: #218838;
+}
+
+/* Cancel Button */
+form button[type="button"] {
+    background-color: #6c757d;
+    color: white;
+}
+
+form button[type="button"]:hover {
+    background-color: #5a6268;
+}
+
+/* Delete Button */
+#p button {
+    background-color: #dc3545;
+    color: white;
+}
+
+#p button:hover {
+    background-color: #c82333;
+}
+
+/* Form Styles */
+h2 {
+    color: #333;
+}
+
+label {
+    font-weight: bold;
+    color: #555;
+}
+
+input[type="text"], input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+input[type="text"]:focus, input[type="email"]:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Employee Cards Styling */
+#p div {
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    transition: transform 0.2s ease-in-out;
+}
+
+#p div:hover {
+    transform: scale(1.02);
+    background-color: #eef;
+}
